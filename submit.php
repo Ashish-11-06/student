@@ -1,15 +1,40 @@
 <?php
-$servername = "your-aiven-hostname";
-$username = "your-username";
-$password = "your-password";
-$dbname = "your-database-name";
+$servername = "mysql-2460dd5f-snehalkadam1911.c.aivencloud.com";
+$username = "avnadmin";
+$password = "AVNS_VL5zdzgbMxp2CTae0nv";
+$dbname = "defaultdb";
+$port = 12810;
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// Path to your CA certificate
+$ssl_ca = "/path/to/ca.pem"; // Update with the actual path where the certificate is stored
+
+// Create connection with SSL support
+$conn = new mysqli($servername, $username, $password, $dbname, $port);
+
+// Check if the CA certificate exists
+if (file_exists($ssl_ca)) {
+    $conn->ssl_set(NULL, NULL, $ssl_ca, NULL, NULL);
+}
 
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
+}
+
+// SQL to create table if it does not exist
+$tableCreationSQL = "CREATE TABLE IF NOT EXISTS contacts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)";
+
+// Execute table creation query
+if ($conn->query($tableCreationSQL) === TRUE) {
+    echo "Table created successfully or already exists.";
+} else {
+    echo "Error creating table: " . $conn->error;
 }
 
 // Prepare and bind

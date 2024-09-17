@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Data Form</title>
+    <link rel="stylesheet" href="home.css">
+      
+</head>
+<body>
+    <div class="container">
+        <h2>Student Data Form</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="studentName">Student Name:</label>
+                <input type="text" id="studentName" name="studentName" placeholder="Enter full name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="class">Class:</label>
+                <select id="class" name="class" required>
+                    <option value="">Select class</option>
+                    <option value="10">10th</option>
+                    <option value="11">11th</option>
+                    <option value="12">12th</option>
+                </select>
+            </div>
+          
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter email address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter contact number" required>
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>

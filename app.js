@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 });
 
 // Handle form submission
-app.post('/submit', (req, res) => {
+app.post('/', (req, res) => {
     const { studentName, email, class: studentClass, phoneNumber } = req.body;
     
     const message = `Class: ${studentClass}\nPhone: ${phoneNumber}`;
@@ -74,7 +74,7 @@ app.post('/submit', (req, res) => {
         
         // If successful, send the response message with student details back to the same page
         res.render('form', {
-            message: 'New record created successfully!',
+            message: 'Following record created successfully!',
             student: {
                 name: studentName,
                 email: email,

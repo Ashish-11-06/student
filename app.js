@@ -1,7 +1,8 @@
+// app.js
 const express = require('express');
-const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const path = require('path');
+const connection = require('./db'); // Import the MySQL connection
 
 const app = express();
 const port = 3000;
@@ -14,43 +15,6 @@ app.set('view engine', 'ejs');
 
 // Serve static files (CSS, JS)
 app.use(express.static(path.join(__dirname, 'public')));
-
-// MySQL connection configuration
-const connection = mysql.createConnection({
-    host: 'mysql-2460dd5f-snehalkadam1911.c.aivencloud.com',
-    user: 'avnadmin',
-    password: 'AVNS_TLQSGEgAZs1wAPe-vJr',
-    database: 'defaultdb',
-    port: 12810
-});
-
-// Connect to MySQL and create table if it doesn't exist
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err.stack);
-        return;
-    }
-    console.log('Connected to MySQL');
-    
-    // Create table if it doesn't exist
-    const createTableQuery = `
-        CREATE TABLE IF NOT EXISTS student (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            email VARCHAR(255) NOT NULL,
-            message TEXT NOT NULL,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    `;
-    
-    connection.query(createTableQuery, (err, results) => {
-        if (err) {
-            console.error('Error creating table:', err.stack);
-        } else {
-            console.log('Table "student" is ready.');
-        }
-    });
-});
 
 // Serve the form page with optional message
 app.get('/', (req, res) => {
